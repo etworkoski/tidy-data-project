@@ -46,6 +46,8 @@ all_df_sub <- all_df_sub %>% rename_with(~new_colnames[which(old_colnames == .x)
 # Add descriptive names for activity numbers
 tidy_dataset_1 <- left_join(all_df_sub, activity_list, by = "activity_num") #Add on an activity name column - note that a left join is used to preserve all data in case of missing activity numbers although initial investigations did not find evidence of this issue
 tidy_dataset_1 <- tidy_dataset_1[,c(1,2,89,3:88)] #reorders columns so that activity number and name are next to each other
+write.table(tidy_dataset_1, "tidy_dataset_1.txt", row.names=FALSE)
 
 ## GENERATE FINAL TIDY DATASET #2
 tidy_dataset_2 <- aggregate(tidy_dataset_1[,4:89], list(subject_num=tidy_dataset_1$subject_num, activity_num=tidy_dataset_1$activity_num, activity_name=tidy_dataset_1$activity_name), mean) #calculate mean of all feature columns, grouped by subject number, activity number, and activity name
+write.table(tidy_dataset_2, "tidy_dataset_2.txt", row.names = FALSE)
